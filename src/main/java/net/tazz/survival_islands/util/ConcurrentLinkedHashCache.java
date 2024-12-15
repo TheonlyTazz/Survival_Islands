@@ -3,7 +3,7 @@ package net.tazz.survival_islands.util;
 import java.util.concurrent.*;
 import java.util.function.Function;
 
-public class LinkedHashCache<K, V> {
+public class ConcurrentLinkedHashCache<K, V> {
 
     private final ConcurrentHashMap<K, LinkedEntry<K, V>> storage;
     private LinkedEntry<K, V> mostRecentlyUsedEntry, leastRecentlyUsedEntry;
@@ -18,7 +18,7 @@ public class LinkedHashCache<K, V> {
     private LinkedEntry<K, V> orderUpdatePassCurrentEntry;
     private int orderUpdatePassCurrentIndexValue;
 
-    public LinkedHashCache(int minSize, int maxSize, int recencyPruningFactor) {
+    public ConcurrentLinkedHashCache(int minSize, int maxSize, int recencyPruningFactor) {
         storage = new ConcurrentHashMap<>();
         removalQueue = new LinkedBlockingQueue<>();
         size = 0;
@@ -77,7 +77,7 @@ public class LinkedHashCache<K, V> {
                     // If we're above the max size, or we're above the min size and recent access patterns tell us the cache can be smaller,
                     // flag an entry for removal.
                     if (size > maxSize || (size > minSize && leastRecentlyUsedEntry.approximateOrderIndex > approximateRecentCacheAccessDepth * recencyPruningFactor)) {
-                        leastRecentlyUsedEntry.awaitableValue = null;
+                        leastRecentlyUsedEntry.approximateOrderIndex = -1; // Mark for removal
                         removalQueue.add(leastRecentlyUsedEntry.key);
                         size--;
 
@@ -119,7 +119,7 @@ public class LinkedHashCache<K, V> {
         K keyToRemove = removalQueue.poll();
         if (keyToRemove != null) {
             storage.computeIfPresent(keyToRemove,
-                    (keyForRemoval, entryForRemoval) -> entryForRemoval.awaitableValue == null ? null : entryForRemoval
+                    (keyForRemoval, entryForRemoval) -> leastRecentlyUsedEntry.approximateOrderIndex == -1 ? null : entryForRemoval
             );
         }
 
@@ -140,10 +140,6 @@ public class LinkedHashCache<K, V> {
             this.key = key;
             this.awaitableValue = awaitableValue;
         }
-    }
-
-    private static class Wrapper<T> {
-        public T wrapped;
     }
 
 }

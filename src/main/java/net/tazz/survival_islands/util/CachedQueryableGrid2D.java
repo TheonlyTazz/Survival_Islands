@@ -12,7 +12,7 @@ public class CachedQueryableGrid2D<TEntry> {
     private final int subgridWidth;
     private final int entryCountPerCell;
     private final Class<TEntry> entryClass;
-    private final LinkedHashCache<Vector, TEntry[]> subgridCache;
+    private final ConcurrentLinkedHashCache<Vector, TEntry[]> subgridCache;
     private final SubgridGenerator<TEntry> subgridGenerator;
 
     public CachedQueryableGrid2D(Class<TEntry> entryClass, int subgridWidthExponent, int entryCountPerCell, SubgridGenerator<TEntry> subgridGenerator, int subgridCacheMinEntries, int subgridCacheMaxEntries, int subgridCachePruningFactor) {
@@ -20,7 +20,7 @@ public class CachedQueryableGrid2D<TEntry> {
         this.subgridWidthExponent = subgridWidthExponent;
         this.subgridWidth = 1 << subgridWidthExponent;
         this.entryCountPerCell = entryCountPerCell;
-        this.subgridCache = new LinkedHashCache<>(subgridCacheMinEntries, subgridCacheMaxEntries, subgridCachePruningFactor);
+        this.subgridCache = new ConcurrentLinkedHashCache<>(subgridCacheMinEntries, subgridCacheMaxEntries, subgridCachePruningFactor);
         this.subgridGenerator = subgridGenerator;
     }
 
