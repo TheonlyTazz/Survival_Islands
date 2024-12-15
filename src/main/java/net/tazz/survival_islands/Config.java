@@ -9,14 +9,13 @@ import net.neoforged.neoforge.common.ModConfigSpec;
 import net.tazz.survival_islands.noise.OctaveNoiseRecipe2D;
 import net.tazz.survival_islands.util.FloatRange;
 
-// An example config class. This is not required, but it's a good idea to have one to keep your config organized.
-// Demonstrates how to use Neo's config APIs
+
 @EventBusSubscriber(modid = Survival_Islands.MODID, bus = EventBusSubscriber.Bus.MOD)
 public class Config {
     private static final ModConfigSpec.Builder BUILDER = new ModConfigSpec.Builder();
 
     private static final ModConfigSpec.ConfigValue<Double> ISLAND_SIZE = BUILDER.comment("Island Size:").define("islandSize", 128.0);
-    private static final ModConfigSpec.ConfigValue<Integer> ISLAND_SEPERATION = BUILDER.comment("Island Seperation:").define("islandSeperation", 9);
+    private static final ModConfigSpec.ConfigValue<Integer> ISLAND_SEPERATION = BUILDER.comment("Island Seperation:").define("islandSeperation", 800);
     private static final ModConfigSpec.ConfigValue<Double> ISLAND_UNDERWATER_DISTANCE_MULTIPLIER = BUILDER.comment("Island Underwater Falloff Distance Multiplier").define("islandUnderwaterFalloffDistanceMultiplier", 9.0);
 
     private static final ModConfigSpec.BooleanValue HARDCORE_MODE = BUILDER.comment("Only spawn 1 island?").define("hardcoreMode", false);
@@ -43,7 +42,6 @@ public class Config {
     static void onLoad(final ModConfigEvent event) {
         islandSize = ISLAND_SIZE.get();
         islandSeparation = ISLAND_SEPERATION.get();
-
         islandUnderwaterFalloffDistanceMultiplier = ISLAND_UNDERWATER_DISTANCE_MULTIPLIER.get();
         hardcoreMode = HARDCORE_MODE.get();
 

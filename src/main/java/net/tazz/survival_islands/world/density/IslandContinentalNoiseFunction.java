@@ -50,21 +50,24 @@ public class IslandContinentalNoiseFunction implements DensityFunction {
                 Config.islandUnderwaterFalloffDistanceMultiplier,
                 domainWarpNoise, rangeVariationNoise
         );
-
+        LOGGER.info("randomsource: {}", random);
         this.islandContinentalNoise = ISLAND_CONTINENTAL_NOISE_INSTANCE_CACHE.computeIfAbsent(islandContinentalNoise, (k) -> islandContinentalNoise);
     }
 
     @Override
     public double compute(FunctionContext ctx) {
+        LOGGER.info("We are still logging");
         return islandContinentalNoise.compute(ctx.blockX(), ctx.blockZ());
     }
 
     @Override
     public void fillArray(double[] ds, ContextProvider contextProvider) {
+        LOGGER.info("We are Filling Arrays");
         contextProvider.fillAllDirectly(ds, this);
     }
 
     private static IslandContinentalNoiseFunction fork(long seed) {
+        LOGGER.info("Forking islandContinentalNoiseFunction");
         return new IslandContinentalNoiseFunction(seed);
     }
 
@@ -78,11 +81,13 @@ public class IslandContinentalNoiseFunction implements DensityFunction {
 
     @Override
     public double minValue() {
+        LOGGER.info("Minvalue of islandContinentalNoiseFunction {}", islandContinentalNoise.minValue());
         return islandContinentalNoise.minValue();
     }
 
     @Override
     public double maxValue() {
+        LOGGER.info("Maxvalue of islandContinentalNoiseFunction {}", islandContinentalNoise.maxValue());
         return islandContinentalNoise.maxValue();
     }
 
