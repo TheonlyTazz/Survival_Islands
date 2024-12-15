@@ -31,17 +31,17 @@ public class Config {
 
     static final ModConfigSpec SPEC = BUILDER.build();
 
-    public static double islandSize = 64.0;
-    public static int islandSeparation = 1800;
-    public static float continentalTargetRangeAMin = -0.25f;
-    public static float continentalTargetRangeAMax = 0.7f;
-    public static float continentalTargetRangeBMin = -1.0f;
-    public static float continentalTargetRangeBMax = 1.4f;
-    public static double islandUnderwaterFalloffDistanceMultiplier = 9.0;
+    public static double islandSize;
+    public static int islandSeparation;
+    public static float continentalTargetRangeAMin;
+    public static float continentalTargetRangeAMax;
+    public static float continentalTargetRangeBMin;
+    public static float continentalTargetRangeBMax;
+    public static double islandUnderwaterFalloffDistanceMultiplier;
+    public static boolean hardcoreMode;
 
     public static OctaveNoiseRecipe2D domainWarpNoise = new OctaveNoiseRecipe2D(1, 28, 22, 1.732, 1.732);
     public static OctaveNoiseRecipe2D rangeVariationNose = new OctaveNoiseRecipe2D(2, 344, 1.2, 1.732, 1.732);
-    public static boolean hardcoreMode = false;
 
 
     private static boolean validateItemName(final Object obj) {
@@ -57,6 +57,7 @@ public class Config {
         continentalTargetRangeBMin = CONT_RANGE_B_MIN.get();
         continentalTargetRangeBMax = CONT_RANGE_B_MAX.get();
         islandUnderwaterFalloffDistanceMultiplier = ISLAND_UNDERWATER_DISTANCE_MULTIPLIER.get();
+        hardcoreMode = HARDCORE_MODE.get();
 
     }
 }
