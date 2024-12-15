@@ -1,0 +1,93 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "java",
+      "request": "launch",
+      "name": "Client",
+      "presentation": {
+        "group": "Mod Development - Survival Islands",
+        "order": 0
+      },
+      "projectName": "Survival Islands",
+      "mainClass": "net.neoforged.devlaunch.Main",
+      "args": [
+        "@C:\\Users\\TheonlyTazz\\Documents\\Github\\TheonlyTazz\\Survival Islands\\build\\moddev\\clientRunProgramArgs.txt"
+      ],
+      "vmArgs": [
+        "@C:\\Users\\TheonlyTazz\\Documents\\Github\\TheonlyTazz\\Survival Islands\\build\\moddev\\clientRunVmArgs.txt",
+        "-Dfml.modFolders\u003dsurvival_islands%%C:\\Users\\TheonlyTazz\\Documents\\Github\\TheonlyTazz\\Survival Islands\\bin\\main"
+      ],
+      "cwd": "${workspaceFolder}\\run",
+      "env": {},
+      "console": "internalConsole",
+      "shortenCommandLine": "none"
+    },
+    {
+      "type": "java",
+      "request": "launch",
+      "name": "Data",
+      "presentation": {
+        "group": "Mod Development - Survival Islands",
+        "order": 1
+      },
+      "projectName": "Survival Islands",
+      "mainClass": "net.neoforged.devlaunch.Main",
+      "args": [
+        "@C:\\Users\\TheonlyTazz\\Documents\\Github\\TheonlyTazz\\Survival Islands\\build\\moddev\\dataRunProgramArgs.txt"
+      ],
+      "vmArgs": [
+        "@C:\\Users\\TheonlyTazz\\Documents\\Github\\TheonlyTazz\\Survival Islands\\build\\moddev\\dataRunVmArgs.txt",
+        "-Dfml.modFolders\u003dsurvival_islands%%C:\\Users\\TheonlyTazz\\Documents\\Github\\TheonlyTazz\\Survival Islands\\bin\\main"
+      ],
+      "cwd": "${workspaceFolder}\\run",
+      "env": {},
+      "console": "internalConsole",
+      "shortenCommandLine": "none"
+    },
+    {
+      "type": "java",
+      "request": "launch",
+      "name": "GameTestServer",
+      "presentation": {
+        "group": "Mod Development - Survival Islands",
+        "order": 2
+      },
+      "projectName": "Survival Islands",
+      "mainClass": "net.neoforged.devlaunch.Main",
+      "args": [
+        "@C:\\Users\\TheonlyTazz\\Documents\\Github\\TheonlyTazz\\Survival Islands\\build\\moddev\\gameTestServerRunProgramArgs.txt"
+      ],
+      "vmArgs": [
+        "@C:\\Users\\TheonlyTazz\\Documents\\Github\\TheonlyTazz\\Survival Islands\\build\\moddev\\gameTestServerRunVmArgs.txt",
+        "-Dfml.modFolders\u003dsurvival_islands%%C:\\Users\\TheonlyTazz\\Documents\\Github\\TheonlyTazz\\Survival Islands\\bin\\main"
+      ],
+      "cwd": "${workspaceFolder}\\run",
+      "env": {},
+      "console": "internalConsole",
+      "shortenCommandLine": "none"
+    },
+    {
+      "type": "java",
+      "request": "launch",
+      "name": "Server",
+      "presentation": {
+        "group": "Mod Development - Survival Islands",
+        "order": 3
+      },
+      "projectName": "Survival Islands",
+      "mainClass": "net.neoforged.devlaunch.Main",
+      "args": [
+        "@C:\\Users\\TheonlyTazz\\Documents\\Github\\TheonlyTazz\\Survival Islands\\build\\moddev\\serverRunProgramArgs.txt"
+      ],
+      "vmArgs": [
+        "@C:\\Users\\TheonlyTazz\\Documents\\Github\\TheonlyTazz\\Survival Islands\\build\\moddev\\serverRunVmArgs.txt",
+        "-Dfml.modFolders\u003dsurvival_islands%%C:\\Users\\TheonlyTazz\\Documents\\Github\\TheonlyTazz\\Survival Islands\\bin\\main"
+      ],
+      "cwd": "${workspaceFolder}\\run",
+      "env": {},
+      "console": "internalConsole",
+      "shortenCommandLine": "none"
+    }
+  ]
+}
