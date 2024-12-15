@@ -1,23 +1,29 @@
 package net.tazz.survival_islands.world.density;
 
-import com.mojang.serialization.Codec;
+import com.mojang.logging.LogUtils;
 import com.mojang.serialization.MapCodec;
-import net.minecraft.core.Registry;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.KeyDispatchDataCodec;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.levelgen.DensityFunction;
 import net.minecraft.world.level.levelgen.PositionalRandomFactory;
 import net.minecraft.world.level.levelgen.XoroshiroRandomSource;
+import net.tazz.survival_islands.Survival_Islands;
 import net.tazz.survival_islands.Config;
 import net.tazz.survival_islands.noise.IslandContinentalNoise;
 import net.tazz.survival_islands.noise.OctaveNoise;
 import net.tazz.survival_islands.util.ConcurrentLinkedHashCache;
 import net.tazz.survival_islands.world.util.SeedStealer;
+import org.jetbrains.annotations.NotNull;
+import org.slf4j.Logger;
+import net.tazz.survival_islands.world.IslandDensityFunctions;
 
 import java.util.Objects;
 
+
+
 public class IslandContinentalNoiseFunction implements DensityFunction {
+    private static final Logger LOGGER = LogUtils.getLogger();
+
     public static final MapCodec<IslandContinentalNoiseFunction> UCODEC = MapCodec.unit(IslandContinentalNoiseFunction::new);
     public static final KeyDispatchDataCodec<IslandContinentalNoiseFunction> CODEC = KeyDispatchDataCodec.of(UCODEC);
 
@@ -36,13 +42,15 @@ public class IslandContinentalNoiseFunction implements DensityFunction {
 
         OctaveNoise domainWarpNoise = Config.domainWarpNoise.makeLive(positionalRandomFactory.fromHashOf("domain_warp_noise"));
         OctaveNoise rangeVariationNoise = Config.rangeVariationNose.makeLive(positionalRandomFactory.fromHashOf("range_variation_noise"));
+
         IslandContinentalNoise islandContinentalNoise = new IslandContinentalNoise(seed,
                 Config.islandSize, Config.islandSeparation,
-                Config.continentalTargetRangeAMin, Config.continentalTargetRangeAMax,
-                Config.continentalTargetRangeBMin, Config.continentalTargetRangeBMax,
+                Config.continentalTargetRangeA.min(), Config.continentalTargetRangeA.max(),
+                Config.continentalTargetRangeB.max(), Config.continentalTargetRangeB.max(),
                 Config.islandUnderwaterFalloffDistanceMultiplier,
                 domainWarpNoise, rangeVariationNoise
         );
+
         this.islandContinentalNoise = ISLAND_CONTINENTAL_NOISE_INSTANCE_CACHE.computeIfAbsent(islandContinentalNoise, (k) -> islandContinentalNoise);
     }
 
@@ -61,9 +69,8 @@ public class IslandContinentalNoiseFunction implements DensityFunction {
     }
 
     @Override
-    public DensityFunction mapAll(Visitor visitor) {
+    public @NotNull DensityFunction mapAll(Visitor visitor) {
         if (visitor instanceof SeedStealer seed) {
-
             return fork(seed.steal());
         }
         return this;
@@ -96,5 +103,4 @@ public class IslandContinentalNoiseFunction implements DensityFunction {
     public int hashCode() {
         return Objects.hash(islandContinentalNoise);
     }
-
 }

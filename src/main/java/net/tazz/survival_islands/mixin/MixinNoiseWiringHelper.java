@@ -1,11 +1,8 @@
 package net.tazz.survival_islands.mixin;
 
 import com.mojang.logging.LogUtils;
-import net.minecraft.core.HolderGetter;
-import net.minecraft.world.level.levelgen.NoiseGeneratorSettings;
 import net.minecraft.world.level.levelgen.RandomState;
 import net.tazz.survival_islands.world.util.SeedStealer;
-import org.jline.utils.Log;
 import org.slf4j.Logger;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -16,12 +13,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class MixinNoiseWiringHelper implements SeedStealer {
     private static final Logger LOGGER = LogUtils.getLogger();
 
-    private long survivalIslands$seed;
+    private long seed;
 
     @Inject(method = "<init>", at = @At("TAIL"))
-    private void captureCtorForIsland(RandomState state, long l, boolean b, CallbackInfo ci) {
-        this.survivalIslands$seed = l;
-        LOGGER.info("Seed is " + survivalIslands$seed);
+    private void stealSeed(RandomState state, long l, boolean b, CallbackInfo ci) {
+        this.seed = l;
+        LOGGER.info("Seed is " + seed);
     }
 
 
@@ -29,6 +26,6 @@ public class MixinNoiseWiringHelper implements SeedStealer {
     @Override
     public long steal() {
 
-        return this.survivalIslands$seed;
+        return this.seed;
     }
 }
