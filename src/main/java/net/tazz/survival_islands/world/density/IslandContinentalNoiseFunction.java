@@ -2,6 +2,8 @@ package net.tazz.survival_islands.world.density;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
+import net.minecraft.core.Registry;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.KeyDispatchDataCodec;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.levelgen.DensityFunction;
@@ -27,7 +29,6 @@ public class IslandContinentalNoiseFunction implements DensityFunction {
     public IslandContinentalNoiseFunction() {
         this(0);
     }
-
 
     public IslandContinentalNoiseFunction(long seed) {
         RandomSource random = new XoroshiroRandomSource(seed);
@@ -61,9 +62,7 @@ public class IslandContinentalNoiseFunction implements DensityFunction {
 
     @Override
     public DensityFunction mapAll(Visitor visitor) {
-        if (visitor instanceof SeedStealer seed) {
-            return fork(seed.steal());
-        }
+
         return this;
     }
 
@@ -94,4 +93,5 @@ public class IslandContinentalNoiseFunction implements DensityFunction {
     public int hashCode() {
         return Objects.hash(islandContinentalNoise);
     }
+
 }
