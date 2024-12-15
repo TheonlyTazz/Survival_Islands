@@ -12,7 +12,7 @@ import net.minecraft.world.level.levelgen.XoroshiroRandomSource;
 import net.tazz.survival_islands.Config;
 import net.tazz.survival_islands.noise.IslandContinentalNoise;
 import net.tazz.survival_islands.noise.OctaveNoise;
-import net.tazz.survival_islands.util.LinkedHashCache;
+import net.tazz.survival_islands.util.ConcurrentLinkedHashCache;
 import net.tazz.survival_islands.world.util.SeedStealer;
 
 import java.util.Objects;
@@ -21,8 +21,8 @@ public class IslandContinentalNoiseFunction implements DensityFunction {
     public static final MapCodec<IslandContinentalNoiseFunction> UCODEC = MapCodec.unit(IslandContinentalNoiseFunction::new);
     public static final KeyDispatchDataCodec<IslandContinentalNoiseFunction> CODEC = KeyDispatchDataCodec.of(UCODEC);
 
-    private static final LinkedHashCache<IslandContinentalNoise, IslandContinentalNoise> ISLAND_CONTINENTAL_NOISE_INSTANCE_CACHE =
-            new LinkedHashCache<>(1, Integer.MAX_VALUE, 512);
+    private static final ConcurrentLinkedHashCache<IslandContinentalNoise, IslandContinentalNoise> ISLAND_CONTINENTAL_NOISE_INSTANCE_CACHE =
+            new ConcurrentLinkedHashCache<>(1, Integer.MAX_VALUE, 512);
 
     private final IslandContinentalNoise islandContinentalNoise;
 
@@ -62,7 +62,10 @@ public class IslandContinentalNoiseFunction implements DensityFunction {
 
     @Override
     public DensityFunction mapAll(Visitor visitor) {
+        if (visitor instanceof SeedStealer seed) {
 
+            return fork(seed.steal());
+        }
         return this;
     }
 

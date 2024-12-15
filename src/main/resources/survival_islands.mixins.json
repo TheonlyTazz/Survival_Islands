@@ -5,6 +5,7 @@
   "compatibilityLevel": "JAVA_21",
   "refmap": "survival_islands.refmap.json",
   "mixins": [
+    "MixinNoiseWiringHelper"
   ],
   "client": [],
   "injectors": {
