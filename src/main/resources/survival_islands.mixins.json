@@ -1,0 +1,14 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "net.tazz.survival_islands.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "refmap": "survival_islands.refmap.json",
+  "mixins": [
+    "MixinNoiseWiringHelper"
+  ],
+  "client": [],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
